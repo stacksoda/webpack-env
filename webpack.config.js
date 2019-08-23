@@ -11,7 +11,9 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js'
     },
-    mode: 'production',
+    // mode: 'production', devserver一般在development环境下使用
+    mode: 'development',
+
     module: {
         rules: [
             {
@@ -33,9 +35,24 @@ module.exports = {
                     'less-loader'
                 ]
             },
+            // {
+            //     test: /\.(png|jpg|gif|jpeg)$/,
+            //     use: 'file-loader'
+            // },
             {
-                test: /\.(png|jpg|gif|jpeg)$/,
-                use: 'file-loader'
+                test: /\.(woff|woff2|eof|ttf|otf)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 10240
+                    }
+                }
             }
         ]
     }
